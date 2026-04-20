@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orlando Hernández Martínez</title>
+  <style>
+    :root {
+      --bg:         #ffffff;
+      --fg:         #111111;
+      --fg-muted:   #555555;
+      --lang-muted: #999999;
+      --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="dark"] {
+      --bg:         #0d0d0d;
+      --fg:         #f0f0f0;
+      --fg-muted:   #aaaaaa;
+      --lang-muted: #555555;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+
+    body {
+      font-family: 'Gotham', 'Futura', 'Century Gothic', 'Trebuchet MS', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #transition-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%; height: 100%;
+      z-index: 1000;
+      display: none;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0; right: 0;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 100;
+    }
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+    }
+    .lang-switcher a {
+      text-decoration: none;
+      color: var(--lang-muted);
+      font-weight: 400;
+      cursor: pointer;
+      transition: color var(--transition);
+    }
+    .lang-switcher a:hover,
+    .lang-switcher a.active { color: var(--fg); font-weight: 700; }
+    .lang-divider { color: var(--lang-muted); user-select: none; }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.25rem;
+      line-height: 1;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+    .theme-toggle:hover { transform: scale(1.2) rotate(15deg); }
+
+    .icon-to-dark  { display: inline; }
+    .icon-to-light { display: none;   }
+    [data-theme="dark"] .icon-to-dark  { display: none;   }
+    [data-theme="dark"] .icon-to-light { display: inline; }
+
+    main {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 48px;
+    }
+
+    .hero-name {
+      font-size: clamp(1.7rem, 4.5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      color: var(--fg);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+    .hero-subtitle {
+      margin-top: 22px;
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      font-weight: 300;
+      color: var(--fg-muted);
+      letter-spacing: 0.01em;
+      line-height: 1.65;
+      max-width: 580px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.7s 0.28s forwards;
+      transition: color var(--transition);
+    }
+    .nav {
+      margin-top: clamp(56px, 10vh, 100px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(18px, 3.5vh, 34px);
+    }
+    .nav a {
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: var(--fg);
+      position: relative;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: color var(--transition);
+    }
+    .nav a:nth-child(1) { animation: fadeUp 0.6s 0.46s forwards; }
+    .nav a:nth-child(2) { animation: fadeUp 0.6s 0.58s forwards; }
+    .nav a:nth-child(3) { animation: fadeUp 0.6s 0.70s forwards; }
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 50%; right: 50%;
+      height: 1.5px;
+      background: var(--fg);
+      transition: left 0.3s ease, right 0.3s ease;
+    }
+    .nav a:hover::after { left: 0; right: 0; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 600px) {
+      .topbar { padding: 18px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="transition-canvas"></canvas>
+
+  <div class="topbar">
+    <nav class="lang-switcher" aria-label="Language">
+      <a href="#" onclick="setLang('es',this);return false;" id="lang-es">es</a>
+      <span class="lang-divider">|</span>
+      <a href="#" onclick="setLang('en',this);return false;" id="lang-en" class="active">en</a>
+    </nav>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="icon-to-dark">🌚</span>
+      <span class="icon-to-light">🌝</span>
+    </button>
+  </div>
+
+  <main>
+    <h1 class="hero-name"     id="hero-name">Orlando Hernández Martínez</h1>
+    <p  class="hero-subtitle" id="hero-subtitle">
+      Designer of interfaces at the intersection of UX, data, and generative systems.
+    </p>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="projects.html" id="nav-projects">Projects</a>
+      <a href="about.html"    id="nav-about">About</a>
+      <a href="contact.html"  id="nav-contact">Contact</a>
+    </nav>
+  </main>
+
+  <script type="module">
+    import random from 'https://cdn.skypack.dev/canvas-sketch-util/random';
+    import math   from 'https://cdn.skypack.dev/canvas-sketch-util/math';
+
+    const canvas = document.getElementById('transition-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    const COLS  = 50;
+    const ROWS  = 50;
+    const FREQ  = 0.001;
+    const AMP   = 0.005;
+    const SPEED = 5;
+
+    // ~90 frames ≈ 1.5 s at 60 fps — single pass, lines grow until full coverage
+    const FILL_FRAMES = 90;
+
+    let isRunning = false;
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', () => { if (!isRunning) resize(); });
+    resize();
+
+    // lineWidth needed so every cell is fully painted regardless of rotation
+    function maxLineWidth() {
+      return (canvas.height / ROWS) * 2.4;
+    }
+
+    // Ease in-out cubic
+    function ease(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function runTransition(direction, onComplete) {
+      if (isRunning) return;
+      isRunning = true;
+
+      resize();
+      canvas.style.display = 'block';
+
+      // bg = starting colour, lines = destination colour
+      const bgColor   = direction === 'to-dark' ? '#ffffff' : '#0d0d0d';
+      const lineColor = direction === 'to-dark' ? '#0d0d0d' : '#ffffff';
+
+      const cellW  = canvas.width  / COLS;
+      const cellH  = canvas.height / ROWS;
+      const maxLW  = maxLineWidth();
+      let   frame  = 0;
+
+      function tick() {
+        const t  = ease(frame / FILL_FRAMES);
+        const lw = t * maxLW;
+
+        // Clear to bg colour
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = lineColor;
+
+        for (let i = 0; i < COLS * ROWS; i++) {
+          const col = i % COLS;
+          const row = Math.floor(i / COLS);
+          const x   = col * cellW;
+          const y   = row * cellH;
+          const len = Math.sqrt(cellW * cellW + cellH * cellH); // diagonal → no corner gaps
+
+          const n      = random.noise3D(x, y, frame * SPEED, FREQ);
+          const angle  = n * Math.PI * AMP;
+          const nScale = math.mapRange(n, -1, 1, 0.7, 1.3);
+
+          ctx.save();
+          ctx.translate(x + cellW / 2, y + cellH / 2);
+          ctx.rotate(angle);
+          ctx.lineWidth = lw * nScale;
+          ctx.beginPath();
+          ctx.moveTo(-len / 2, 0);
+          ctx.lineTo( len / 2, 0);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        frame++;
+
+        if (frame <= FILL_FRAMES) {
+          requestAnimationFrame(tick);
+        } else {
+          // Screen is now fully covered — swap theme, hide canvas
+          onComplete();
+          canvas.style.display = 'none';
+          isRunning = false;
+        }
+      }
+
+      tick();
+    }
+
+    window._noiseTransition = runTransition;
+  </script>
+
+  <script>
+    const html = document.documentElement;
+
+    const saved = localStorage.getItem('theme');
+    if (saved) html.setAttribute('data-theme', saved);
+
+    function toggleTheme() {
+      if (typeof window._noiseTransition !== 'function') return;
+      const current = html.getAttribute('data-theme');
+      const next    = current === 'dark' ? 'light' : 'dark';
+      const dir     = next === 'dark' ? 'to-dark' : 'to-light';
+
+      window._noiseTransition(dir, () => {
+        // Called once lines fully cover the screen
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+
+    const copy = {
+      es: {
+        subtitle: 'Diseñador de interfaces en la intersección de UX, datos y sistemas generativos.',
+        projects: 'Proyectos',
+        about:    'Acerca de',
+        contact:  'Contacto',
+      },
+      en: {
+        subtitle: 'Designer of interfaces at the intersection of UX, data, and generative systems.',
+        projects: 'Projects',
+        about:    'About',
+        contact:  'Contact',
+      }
+    };
+
+    let currentLang = 'en';
+
+    function setLang(lang, el) {
+      if (lang === currentLang) return;
+      currentLang = lang;
+      document.querySelectorAll('.lang-switcher a').forEach(a => a.classList.remove('active'));
+      el.classList.add('active');
+      html.lang = lang;
+      const t = copy[lang];
+      document.getElementById('hero-subtitle').textContent = t.subtitle;
+      document.getElementById('nav-projects').textContent  = t.projects;
+      document.getElementById('nav-about').textContent     = t.about;
+      document.getElementById('nav-contact').textContent   = t.contact;
+    }
+  </script>
+
+</body>
+</html>
