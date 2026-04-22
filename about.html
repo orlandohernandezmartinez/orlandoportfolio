@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <!-- Google tag (gtag.js) -->
+  <head>
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4XK1FM34B3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -10,7 +11,7 @@
 
   gtag('config', 'G-4XK1FM34B3');
 </script>
-  
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About — Orlando Hernández Martínez</title>
@@ -236,11 +237,11 @@
   <!-- ── Matrix preloader ──────────────────────────────────────── -->
   <script>
   (() => {
-    const PRELOADER_RUN_MS=2000, PRELOADER_FREEZE_MS=100, PRELOADER_FADE_MS=650;
+    const PRELOADER_RUN_MS=2000, PRELOADER_FREEZE_MS=80, PRELOADER_FADE_MS=400;
     const preloader=document.getElementById("preloader");
     const matrix=document.getElementById("matrix");
     let word="ABOUT", cols=word.length;
-    let rows=0,cellsByCol=[],activeRowByCol=[],tickTimer=null,running=true;
+    let rows=0,cellsByCol=[],activeRowByCol=[],tickTimer=null,running=false;
     const randInt=n=>Math.floor(Math.random()*n);
     function computeLayout(){
       const vw=window.innerWidth,vh=window.innerHeight;
@@ -276,19 +277,27 @@
     function rebuild(){ computeLayout(); buildGrid(); }
     window.addEventListener("resize",()=>{ if(!running)return; clearTimeout(tickTimer); setTimeout(rebuild,120); });
 
-    function runOnLoad(){
-      if(location.hash)history.replaceState(null,"",location.pathname+location.search);
-      window.scrollTo(0,0); running=true; rebuild(); tick();
-      setTimeout(()=>{
-        stopMatrix();
+    window.addEventListener("load", () => {
+      const flag = sessionStorage.getItem("showPreloader");
+      sessionStorage.removeItem("showPreloader");
+      if (flag) {
+        preloader.style.display = "flex";
+        running = true; rebuild(); tick();
         setTimeout(()=>{
-          preloader.classList.add("fade-out");
-          setTimeout(()=>{ preloader.style.display="none"; window.scrollTo(0,0); }, PRELOADER_FADE_MS);
-        }, PRELOADER_FREEZE_MS);
-      }, PRELOADER_RUN_MS);
-    }
+          stopMatrix();
+          setTimeout(()=>{
+            preloader.classList.add("fade-out");
+            setTimeout(()=>{ preloader.style.display="none"; }, PRELOADER_FADE_MS);
+          }, PRELOADER_FREEZE_MS);
+        }, PRELOADER_RUN_MS);
+      } else {
+        preloader.style.display = "none";
+      }
+    }, {once:true});
+
     function runThenNavigate(href,label){
       if(label){ word=label; cols=word.length; }
+      sessionStorage.setItem("showPreloader","1");
       preloader.style.display="flex"; preloader.classList.remove("fade-out");
       running=true; rebuild(); tick();
       setTimeout(()=>{ stopMatrix(); setTimeout(()=>{ window.location.href=href; }, PRELOADER_FREEZE_MS); }, PRELOADER_RUN_MS);
@@ -298,7 +307,6 @@
       const href=a.getAttribute("href"); if(!href||href.startsWith("#"))return;
       e.preventDefault(); runThenNavigate(href,a.getAttribute("data-word")||null);
     });
-    window.addEventListener("load",runOnLoad,{once:true});
   })();
   </script>
 
@@ -368,11 +376,6 @@
       if(lang===html.lang)return;
       if(lang==='es') window.location.href='es/about.html';
     }
-
-    /* Keep lang buttons in sync visually */
-    document.querySelectorAll('.lang-switcher a').forEach(a=>{
-      a.addEventListener('click', e=>{ e.preventDefault(); setLang(a.id.replace('lang-','')); });
-    });
   </script>
 
 </body>
