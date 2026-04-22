@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" data-theme="light">
 <head>
-  <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4XK1FM34B3"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -10,7 +10,7 @@
 
   gtag('config', 'G-4XK1FM34B3');
 </script>
-  
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Orlando Hernández Martínez</title>
@@ -123,12 +123,19 @@
     function rebuild(){computeLayout();buildGrid();}
     window.addEventListener("resize",()=>{if(!running)return;clearTimeout(tickTimer);setTimeout(rebuild,120);});
     function runOnLoad(){
-      if(location.hash)history.replaceState(null,"",location.pathname+location.search);
-      window.scrollTo(0,0);running=true;rebuild();tick();
-      setTimeout(()=>{stopMatrix();setTimeout(()=>{preloader.classList.add("fade-out");setTimeout(()=>{preloader.style.display="none";window.scrollTo(0,0);},PRELOADER_FADE_MS);},PRELOADER_FREEZE_MS);},PRELOADER_RUN_MS);
+      const flag = sessionStorage.getItem("showPreloader");
+      sessionStorage.removeItem("showPreloader");
+      if (flag) {
+        preloader.style.display="flex";
+        running=true;rebuild();tick();
+        setTimeout(()=>{stopMatrix();setTimeout(()=>{preloader.classList.add("fade-out");setTimeout(()=>{preloader.style.display="none";},400);},80);},2000);
+      } else {
+        preloader.style.display="none";
+      }
     }
     function runThenNavigate(href,label){
       if(label){word=label;cols=word.length;}
+      sessionStorage.setItem("showPreloader","1");
       preloader.style.display="flex";preloader.classList.remove("fade-out");
       running=true;rebuild();tick();
       setTimeout(()=>{stopMatrix();setTimeout(()=>{window.location.href=href;},PRELOADER_FREEZE_MS);},PRELOADER_RUN_MS);
