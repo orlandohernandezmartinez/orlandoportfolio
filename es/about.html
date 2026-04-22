@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Orlando Hernández Martínez</title>
+  <title>Acerca de — Orlando Hernández Martínez</title>
   <style>
-    :root { --bg:#ffffff; --fg:#111111; --fg-muted:#555555; --fg-dim:#999999; --lang-muted:#999999; --tr:0.35s cubic-bezier(0.4,0,0.2,1); }
-    [data-theme="dark"] { --bg:#0d0d0d; --fg:#f0f0f0; --fg-muted:#aaaaaa; --fg-dim:#444444; --lang-muted:#555555; }
+    :root{--bg:#ffffff;--fg:#111111;--fg-muted:#555555;--fg-dim:#999999;--lang-muted:#999999;--tr:0.35s cubic-bezier(0.4,0,0.2,1);}
+    [data-theme="dark"]{--bg:#0d0d0d;--fg:#f0f0f0;--fg-muted:#aaaaaa;--fg-dim:#444444;--lang-muted:#555555;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{font-size:16px;}
+    html{font-size:16px;scroll-behavior:smooth;}
     body{font-family:'Gotham','Futura','Century Gothic','Trebuchet MS',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden;transition:background 0.25s ease,color 0.25s ease;}
     #preloader{position:fixed;inset:0;background:var(--bg);z-index:2000;display:flex;align-items:center;justify-content:center;transition:opacity 650ms ease;}
     #preloader.fade-out{opacity:0;pointer-events:none;}
@@ -23,24 +23,28 @@
     .lang-divider{color:var(--lang-muted);user-select:none;}
     .topbar-btn{background:none;border:none;cursor:pointer;font-size:1.25rem;line-height:1;padding:2px;display:flex;align-items:center;transition:transform 0.3s ease;text-decoration:none;}
     .topbar-btn:hover{transform:scale(1.2) rotate(15deg);}
-    .icon-to-dark{display:inline;} .icon-to-light{display:none;}
-    [data-theme="dark"] .icon-to-dark{display:none;} [data-theme="dark"] .icon-to-light{display:inline;}
-    main{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;padding:clamp(80px,12vh,140px) clamp(32px,8vw,120px) 60px;max-width:900px;}
-    .content{width:100%;}
-    .content.fade-in .hero-name{animation:fadeUp 0.45s 0s forwards;}
-    .content.fade-in .hero-subtitle{animation:fadeUp 0.45s 0.08s forwards;}
-    .content.fade-in .nav a:nth-child(1){animation:fadeUp 0.4s 0.16s forwards;}
-    .content.fade-in .nav a:nth-child(2){animation:fadeUp 0.4s 0.22s forwards;}
-    .content.fade-in .nav a:nth-child(3){animation:fadeUp 0.4s 0.28s forwards;}
-    .hero-name{font-size:clamp(1.5rem,3.5vw,2.6rem);font-weight:700;line-height:1.2;color:var(--fg);opacity:0;transform:translateY(20px);animation:fadeUp 0.7s 0.1s forwards;}
-    .hero-subtitle{margin-top:14px;font-size:clamp(0.88rem,1.4vw,1.05rem);font-weight:300;color:var(--fg-muted);line-height:1.7;max-width:540px;opacity:0;transform:translateY(18px);animation:fadeUp 0.7s 0.22s forwards;transition:color var(--tr);}
-    .nav{margin-top:clamp(48px,9vh,88px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,3vh,28px);}
-    .nav a{font-size:clamp(0.95rem,1.6vw,1.2rem);font-weight:600;letter-spacing:0.03em;text-decoration:none;color:var(--fg);position:relative;opacity:0;transform:translateY(14px);transition:color var(--tr);}
-    .nav a:nth-child(1){animation:fadeUp 0.6s 0.38s forwards;}
-    .nav a:nth-child(2){animation:fadeUp 0.6s 0.48s forwards;}
-    .nav a:nth-child(3){animation:fadeUp 0.6s 0.58s forwards;}
-    .nav a::after{content:'';position:absolute;bottom:-3px;left:0;right:100%;height:1.5px;background:var(--fg);transition:right 0.28s ease;}
-    .nav a:hover::after{right:0;}
+    .icon-to-dark{display:inline;}.icon-to-light{display:none;}
+    [data-theme="dark"] .icon-to-dark{display:none;}[data-theme="dark"] .icon-to-light{display:inline;}
+    main{max-width:900px;padding:clamp(80px,12vh,140px) clamp(32px,8vw,120px) 80px;}
+    .content.fade-in .section{animation:fadeUp 0.4s forwards;}
+    .content.fade-in .section:nth-child(1){animation-delay:0s;}
+    .content.fade-in .section:nth-child(2){animation-delay:0.06s;}
+    .content.fade-in .section:nth-child(3){animation-delay:0.12s;}
+    .section{margin-bottom:clamp(44px,8vh,76px);opacity:0;transform:translateY(22px);animation:fadeUp 0.7s forwards;}
+    .section:nth-child(1){animation-delay:0.05s;}.section:nth-child(2){animation-delay:0.18s;}.section:nth-child(3){animation-delay:0.31s;}
+    .section-label{font-size:0.68rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--fg-muted);margin-bottom:22px;}
+    .skill-row{margin-bottom:18px;}.skill-row:last-child{margin-bottom:0;}
+    .skill-title{font-size:clamp(0.92rem,1.3vw,1.05rem);font-weight:700;color:var(--fg);margin-bottom:3px;}
+    .skill-desc{font-size:clamp(0.82rem,1.15vw,0.92rem);font-weight:300;color:var(--fg-muted);line-height:1.6;}
+    .prev-list{display:flex;flex-direction:column;gap:12px;}
+    .prev-item{font-size:clamp(0.92rem,1.3vw,1.05rem);font-weight:700;color:var(--fg);}
+    .edu-list{display:flex;flex-direction:column;gap:26px;}
+    .edu-row{display:grid;grid-template-columns:1fr 2fr;gap:16px;align-items:start;}
+    @media(max-width:520px){.edu-row{grid-template-columns:1fr;gap:4px;}}
+    .edu-inst{font-size:clamp(0.92rem,1.3vw,1.05rem);font-weight:700;color:var(--fg);}
+    .edu-degree{font-size:clamp(0.82rem,1.15vw,0.92rem);font-weight:400;color:var(--fg);line-height:1.5;}
+    .edu-year{font-size:clamp(0.78rem,1.05vw,0.88rem);font-weight:300;color:var(--fg-muted);margin-top:2px;}
+    .divider{width:100%;height:1px;background:var(--fg-dim);opacity:0.25;margin-bottom:clamp(44px,8vh,76px);}
     @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
     @media(max-width:600px){.topbar{padding:18px 20px;}}
   </style>
@@ -50,26 +54,76 @@
   <canvas id="transition-canvas"></canvas>
 
   <div class="topbar">
-    <nav class="lang-switcher" aria-label="Language">
+    <nav class="lang-switcher" aria-label="Idioma">
       <a href="#" onclick="setLang('es');return false;" id="lang-es" class="active">es</a>
       <span class="lang-divider">|</span>
       <a href="#" onclick="setLang('en');return false;" id="lang-en">en</a>
     </nav>
-    <button class="topbar-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+    <button class="topbar-btn" onclick="toggleTheme()" aria-label="Cambiar tema">
       <span class="icon-to-dark">🌚</span>
       <span class="icon-to-light">🌝</span>
     </button>
+    <a href="../index.html" data-preload data-word="HOME" class="topbar-btn" aria-label="Inicio">🏠</a>
   </div>
 
   <main>
     <div class="content" id="content">
-      <h1 class="hero-name">Hola, soy Orlando Hernández Martínez</h1>
-      <p class="hero-subtitle">Diseñador de interfaces en la intersección de UX, datos y sistemas generativos.</p>
-      <nav class="nav" aria-label="Navegación principal">
-        <a href="projects.html" data-preload data-word="PROYECTOS">Proyectos</a>
-        <a href="about.html"    data-preload data-word="ACERCA">Acerca de</a>
-        <a href="contact.html"  data-preload data-word="CONTACTO">Contacto</a>
-      </nav>
+
+      <section class="section">
+        <p class="section-label">Actual</p>
+        <div class="skill-row">
+          <p class="skill-title">UX/UI</p>
+          <p class="skill-desc">Prototipado / Design Systems / Flujos de Usuario / Arquitectura de Información</p>
+        </div>
+        <div class="skill-row">
+          <p class="skill-title">Front-End</p>
+          <p class="skill-desc">HTML / CSS / JavaScript / Webflow / Framer / Lovable</p>
+        </div>
+        <div class="skill-row">
+          <p class="skill-title">Data</p>
+          <p class="skill-desc">Análisis / Visualización / Dashboards Dinámicos</p>
+        </div>
+        <div class="skill-row">
+          <p class="skill-title">AI</p>
+          <p class="skill-desc">Integración de APIs / Automatización / Sistemas Generativos</p>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <section class="section">
+        <p class="section-label">Previo</p>
+        <div class="prev-list">
+          <p class="prev-item">Project Management</p>
+          <p class="prev-item">Inbound Mkt</p>
+          <p class="prev-item">Paid Media</p>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <section class="section">
+        <p class="section-label">Educación</p>
+        <div class="edu-list">
+          <div class="edu-row">
+            <p class="edu-inst">UNAM</p>
+            <div><p class="edu-degree">Maestría en Diseño y Comunicación Visual</p><p class="edu-year">2026–</p></div>
+          </div>
+          <div class="edu-row">
+            <p class="edu-inst">Tec de Monterrey</p>
+            <div><p class="edu-degree">Ingeniería en Producción Musical</p><p class="edu-year">2012–2017</p></div>
+          </div>
+          <div class="edu-row">
+            <p class="edu-inst">META</p>
+            <div><p class="edu-degree">iOS Developer</p><p class="edu-year">2024</p></div>
+          </div>
+          <div class="edu-row">
+            <p class="edu-inst">IBM</p>
+            <div><p class="edu-degree">Data Analyst Certificate</p><p class="edu-year">2023</p></div>
+          </div>
+        </div>
+      </section>
+
     </div>
   </main>
 
@@ -77,7 +131,7 @@
   (() => {
     const PRELOADER_RUN_MS=2000,PRELOADER_FREEZE_MS=100,PRELOADER_FADE_MS=650;
     const preloader=document.getElementById("preloader"),matrix=document.getElementById("matrix");
-    let word="OHM",cols=word.length,rows=0,cellsByCol=[],activeRowByCol=[],tickTimer=null,running=true;
+    let word="ACERCA",cols=word.length,rows=0,cellsByCol=[],activeRowByCol=[],tickTimer=null,running=true;
     const randInt=n=>Math.floor(Math.random()*n);
     function computeLayout(){
       const vw=window.innerWidth,vh=window.innerHeight;
@@ -170,9 +224,9 @@
     function refadeContent(){
       const c=document.getElementById('content');if(!c)return;
       c.classList.remove('fade-in');
-      c.querySelectorAll('.hero-name,.hero-subtitle,.nav a').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(14px)';});
+      c.querySelectorAll('.section').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(18px)';});
       void c.offsetHeight;c.classList.add('fade-in');
-      setTimeout(()=>{c.querySelectorAll('.hero-name,.hero-subtitle,.nav a').forEach(el=>{el.style.opacity='';el.style.transform='';});c.classList.remove('fade-in');},700);
+      setTimeout(()=>{c.querySelectorAll('.section').forEach(el=>{el.style.opacity='';el.style.transform='';});c.classList.remove('fade-in');},700);
     }
     window._refadeContent=refadeContent;
     function toggleTheme(){
@@ -183,7 +237,7 @@
       });
     }
     function setLang(lang){
-      if(lang==='en')window.location.href='../index.html';
+      if(lang==='en')window.location.href='../about.html';
     }
   </script>
 </body>
