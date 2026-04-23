@@ -1,155 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" data-preloader-word="CONTACT">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — Orlando Hernández Martínez</title>
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4XK1FM34B3"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-4XK1FM34B3');
-  </script>
-
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4XK1FM34B3');</script>
+  <script>(function(){ const t=localStorage.getItem('theme'); if(t) document.documentElement.setAttribute('data-theme',t); })();</script>
+  <link rel="preload" href="preloader.js" as="script" />
   <style>
-    :root {
-      --bg:         #ffffff;
-      --fg:         #111111;
-      --fg-muted:   #555555;
-      --fg-dim:     #999999;
-      --lang-muted: #999999;
-      --tr:         0.35s cubic-bezier(0.4,0,0.2,1);
-    }
-    [data-theme="dark"] {
-      --bg:         #0d0d0d;
-      --fg:         #f0f0f0;
-      --fg-muted:   #aaaaaa;
-      --fg-dim:     #444444;
-      --lang-muted: #555555;
-    }
-
-    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-    html { font-size:16px; }
-    body {
-      font-family:'Gotham','Futura','Century Gothic','Trebuchet MS',sans-serif;
-      background:var(--bg); color:var(--fg); min-height:100vh; overflow-x:hidden;
-      transition:background 0.25s ease, color 0.25s ease;
-    }
-
-    /* ── Preloader ─────────────────────────────────────────────── */
-    #preloader {
-      position:fixed; inset:0; background:var(--bg); z-index:2000;
-      display:flex; align-items:center; justify-content:center;
-      transition:opacity 650ms ease;
-    }
-    #preloader.fade-out { opacity:0; pointer-events:none; }
-    #matrix { display:grid; width:100vw; height:100vh; position:absolute; inset:0; }
-    .cell {
-      display:flex; align-items:center; justify-content:center;
-      font-family:'Gotham','Futura','Century Gothic',monospace;
-      font-weight:700; letter-spacing:0.05em;
-      color:transparent; text-transform:uppercase;
-      user-select:none; transition:color 0.06s ease;
-    }
-    .cell.on { color:var(--fg); }
-
-    /* ── Noise canvas ──────────────────────────────────────────── */
-    #transition-canvas { position:fixed; inset:0; width:100%; height:100%; z-index:1000; display:none; }
-
-    /* ── Topbar ────────────────────────────────────────────────── */
-    .topbar {
-      position:fixed; top:0; right:0; padding:24px 32px;
-      display:flex; align-items:center; gap:14px; z-index:100;
-    }
-    .lang-switcher { display:flex; align-items:center; gap:6px; font-size:0.78rem; letter-spacing:0.1em; }
-    .lang-switcher a {
-      text-decoration:none; color:var(--lang-muted); font-weight:400;
-      cursor:pointer; transition:color var(--tr);
-    }
-    .lang-switcher a:hover,
-    .lang-switcher a.active { color:var(--fg); font-weight:700; }
-    .lang-divider { color:var(--lang-muted); user-select:none; }
-    .topbar-btn {
-      background:none; border:none; cursor:pointer; font-size:1.25rem;
-      line-height:1; padding:2px; display:flex; align-items:center;
-      transition:transform 0.3s ease; text-decoration:none;
-    }
-    .topbar-btn:hover { transform:scale(1.2) rotate(15deg); }
-    .icon-to-dark  { display:inline; }
-    .icon-to-light { display:none; }
-    [data-theme="dark"] .icon-to-dark  { display:none; }
-    [data-theme="dark"] .icon-to-light { display:inline; }
-
-    /* ── Main layout ───────────────────────────────────────────── */
-    main {
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      padding:clamp(80px,12vh,140px) clamp(32px,8vw,120px) 60px;
-      max-width:780px;
-    }
-
-    /* ── Contact text ──────────────────────────────────────────── */
-    .contact-block {
-      opacity:0;
-      transform:translateY(22px);
-      animation:fadeUp 0.7s 0.1s forwards;
-    }
-
-    .contact-text {
-      font-size:clamp(1.1rem,2.2vw,1.6rem);
-      font-weight:300;
-      line-height:1.75;
-      color:var(--fg);
-    }
-
-    /* Bold inline links with left-expanding underline */
-    .contact-text a {
-      font-weight:700;
-      color:var(--fg);
-      text-decoration:none;
-      position:relative;
-      display:inline-block;
-    }
-    .contact-text a::after {
-      content:'';
-      position:absolute;
-      bottom:-2px; left:0; right:100%;
-      height:1.5px;
-      background:var(--fg);
-      transition:right 0.28s ease;
-    }
-    .contact-text a:hover::after { right:0; }
-
-    /* Re-fade after theme switch */
-    .content.fade-in .contact-block { animation:fadeUp 0.4s 0s forwards; }
-
-    @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
-    @media(max-width:600px){ .topbar{ padding:18px 20px; } }
+    :root{--bg:#ffffff;--fg:#111111;--fg-muted:#555555;--fg-dim:#999999;--lang-muted:#999999;--tr:0.35s cubic-bezier(0.4,0,0.2,1);}
+    [data-theme="dark"]{--bg:#0d0d0d;--fg:#f0f0f0;--fg-muted:#aaaaaa;--fg-dim:#444444;--lang-muted:#555555;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{font-size:16px;}
+    body{font-family:'Gotham','Futura','Century Gothic','Trebuchet MS',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden;transition:background 0.25s ease,color 0.25s ease;}
+    #preloader{position:fixed;inset:0;background:var(--bg);z-index:2000;display:none;align-items:center;justify-content:center;transition:opacity 350ms ease;}
+    #preloader.fade-out{opacity:0;pointer-events:none;}
+    #matrix{display:grid;width:100vw;height:100vh;position:absolute;inset:0;}
+    .cell{display:flex;align-items:center;justify-content:center;font-family:'Gotham','Futura','Century Gothic',monospace;font-weight:700;letter-spacing:0.05em;color:transparent;text-transform:uppercase;user-select:none;transition:color 0.06s ease;}
+    .cell.on{color:var(--fg);}
+    #transition-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:1000;display:none;}
+    .topbar{position:fixed;top:0;right:0;padding:24px 32px;display:flex;align-items:center;gap:14px;z-index:100;}
+    .lang-switcher{display:flex;align-items:center;gap:6px;font-size:0.78rem;letter-spacing:0.1em;}
+    .lang-switcher a{text-decoration:none;color:var(--lang-muted);font-weight:400;cursor:pointer;transition:color var(--tr);}
+    .lang-switcher a:hover,.lang-switcher a.active{color:var(--fg);font-weight:700;}
+    .lang-divider{color:var(--lang-muted);user-select:none;}
+    .topbar-btn{background:none;border:none;cursor:pointer;font-size:1.25rem;line-height:1;padding:2px;display:flex;align-items:center;transition:transform 0.3s ease;text-decoration:none;}
+    .topbar-btn:hover{transform:scale(1.2) rotate(15deg);}
+    .icon-to-dark{display:inline;}.icon-to-light{display:none;}
+    [data-theme="dark"] .icon-to-dark{display:none;}[data-theme="dark"] .icon-to-light{display:inline;}
+    main{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(80px,12vh,140px) clamp(32px,8vw,120px) 60px;max-width:780px;}
+    .contact-block{opacity:0;transform:translateY(22px);animation:fadeUp 0.7s 0.08s forwards;}
+    .contact-text{font-size:clamp(1.1rem,2.2vw,1.6rem);font-weight:300;line-height:1.75;color:var(--fg);}
+    .contact-text a{font-weight:700;color:var(--fg);text-decoration:none;position:relative;display:inline-block;}
+    .contact-text a::after{content:'';position:absolute;bottom:-2px;left:0;right:100%;height:1.5px;background:var(--fg);transition:right 0.28s ease;}
+    .contact-text a:hover::after{right:0;}
+    .content.fade-in .contact-block{animation:fadeUp 0.4s 0s forwards;}
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+    @media(max-width:600px){.topbar{padding:18px 20px;}}
   </style>
 </head>
 <body>
-
   <div id="preloader"><div id="matrix"></div></div>
   <canvas id="transition-canvas"></canvas>
-
   <div class="topbar">
     <nav class="lang-switcher" aria-label="Language">
-      <a href="#" onclick="setLang('es');return false;" id="lang-es">es</a>
+      <a href="#" onclick="setLang('es');return false;">es</a>
       <span class="lang-divider">|</span>
-      <a href="#" onclick="setLang('en');return false;" id="lang-en" class="active">en</a>
+      <a href="#" onclick="setLang('en');return false;" class="active">en</a>
     </nav>
     <button class="topbar-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-      <span class="icon-to-dark">🌚</span>
-      <span class="icon-to-light">🌝</span>
+      <span class="icon-to-dark">🌚</span><span class="icon-to-light">🌝</span>
     </button>
     <a href="index.html" data-preload data-word="HOME" class="topbar-btn" aria-label="Home">🏠</a>
   </div>
-
   <main>
     <div class="content" id="content">
       <div class="contact-block">
@@ -163,132 +67,16 @@
       </div>
     </div>
   </main>
-
-  <!-- ── Matrix preloader ───────────────────────────────────────── -->
+  <script src="preloader.js"></script>
   <script>
-  (() => {
-    const PRELOADER_RUN_MS=2000, PRELOADER_FREEZE_MS=80, PRELOADER_FADE_MS=400;
-    const preloader=document.getElementById("preloader");
-    const matrix=document.getElementById("matrix");
-    let word="CONTACT", cols=word.length;
-    let rows=0,cellsByCol=[],activeRowByCol=[],tickTimer=null,running=false;
-    const randInt=n=>Math.floor(Math.random()*n);
-    function computeLayout(){
-      const vw=window.innerWidth,vh=window.innerHeight;
-      rows=Math.max(6,Math.floor(vh/(vw<480?70:90)));
-      const gap=Math.max(8,Math.floor(Math.min(vw,vh)*0.02));
-      const cell=Math.max(18,Math.min(Math.floor((vw-gap*(cols-1))/cols),Math.floor((vh-gap*(rows-1))/rows)));
-      const gapX=cols>1?Math.floor((vw-cell*cols)/(cols-1)):0;
-      const gapY=rows>1?Math.floor((vh-cell*rows)/(rows-1)):0;
-      matrix.style.gridTemplateColumns=`repeat(${cols},${cell}px)`;
-      matrix.style.gridTemplateRows=`repeat(${rows},${cell}px)`;
-      matrix.style.columnGap=`${gapX}px`; matrix.style.rowGap=`${gapY}px`;
-      matrix.style.fontSize=`${Math.floor(cell*0.82)}px`;
-    }
-    function buildGrid(){
-      matrix.innerHTML=""; cellsByCol=Array.from({length:cols},()=>[]); activeRowByCol=Array(cols).fill(0);
-      for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
-        const el=document.createElement("div"); el.className="cell"; el.textContent=word[c];
-        matrix.appendChild(el); cellsByCol[c].push(el);
-      }
-      for(let c=0;c<cols;c++){const s=randInt(rows);activeRowByCol[c]=s;cellsByCol[c][s].classList.add("on");}
-    }
-    function tick(){
-      if(!running)return;
-      const k=window.innerWidth<480?2:1;
-      for(let i=0;i<k;i++){
-        const col=randInt(cols),prev=activeRowByCol[col];
-        let next=randInt(rows); if(rows>1)while(next===prev)next=randInt(rows);
-        cellsByCol[col][prev].classList.remove("on"); cellsByCol[col][next].classList.add("on"); activeRowByCol[col]=next;
-      }
-      tickTimer=setTimeout(tick,55+Math.random()*85);
-    }
-    function stopMatrix(){ running=false; if(tickTimer)clearTimeout(tickTimer); }
-    function rebuild(){ computeLayout(); buildGrid(); }
-    window.addEventListener("resize",()=>{ if(!running)return; clearTimeout(tickTimer); setTimeout(rebuild,120); });
-    window.addEventListener("load",()=>{
-      const flag=sessionStorage.getItem("showPreloader");
-      sessionStorage.removeItem("showPreloader");
-      if(flag){
-        preloader.style.display="flex"; running=true; rebuild(); tick();
-        setTimeout(()=>{ stopMatrix(); setTimeout(()=>{ preloader.classList.add("fade-out"); setTimeout(()=>{ preloader.style.display="none"; },PRELOADER_FADE_MS); },PRELOADER_FREEZE_MS); },PRELOADER_RUN_MS);
-      } else { preloader.style.display="none"; }
-    },{once:true});
-    function runThenNavigate(href,label){
-      if(label){ word=label; cols=word.length; }
-      sessionStorage.setItem("showPreloader","1");
-      preloader.style.display="flex"; preloader.classList.remove("fade-out");
-      running=true; rebuild(); tick();
-      setTimeout(()=>{ stopMatrix(); setTimeout(()=>{ window.location.href=href; },PRELOADER_FREEZE_MS); },PRELOADER_RUN_MS);
-    }
-    document.addEventListener("click",e=>{
-      const a=e.target.closest("a[data-preload]"); if(!a)return;
-      const href=a.getAttribute("href"); if(!href||href.startsWith("#"))return;
-      e.preventDefault(); runThenNavigate(href,a.getAttribute("data-word")||null);
-    });
-  })();
-  </script>
-
-  <!-- ── Noise transition ────────────────────────────────────────── -->
-  <script type="module">
-    import random from 'https://cdn.skypack.dev/canvas-sketch-util/random';
-    import math   from 'https://cdn.skypack.dev/canvas-sketch-util/math';
-    const canvas=document.getElementById('transition-canvas'),ctx=canvas.getContext('2d');
-    const COLS=50,ROWS=50,FREQ=0.001,AMP=0.005,SPEED=5,FILL_FRAMES=90;
-    let isRunning=false;
-    function resize(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
-    window.addEventListener('resize',()=>{ if(!isRunning)resize(); }); resize();
-    function maxLW(){ return (canvas.height/ROWS)*2.4; }
-    function ease(t){ return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; }
-    window._noiseTransition=function(dir,onComplete){
-      if(isRunning)return; isRunning=true; resize(); canvas.style.display='block';
-      const bg=dir==='to-dark'?'#ffffff':'#0d0d0d',ln=dir==='to-dark'?'#0d0d0d':'#ffffff';
-      const cW=canvas.width/COLS,cH=canvas.height/ROWS; let f=0;
-      function tick(){
-        const lw=ease(f/FILL_FRAMES)*maxLW();
-        ctx.fillStyle=bg; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.strokeStyle=ln;
-        for(let i=0;i<COLS*ROWS;i++){
-          const col=i%COLS,row=Math.floor(i/COLS),x=col*cW,y=row*cH;
-          const len=Math.sqrt(cW*cW+cH*cH),n=random.noise3D(x,y,f*SPEED,FREQ);
-          const angle=n*Math.PI*AMP,ns=math.mapRange(n,-1,1,0.7,1.3);
-          ctx.save(); ctx.translate(x+cW/2,y+cH/2); ctx.rotate(angle);
-          ctx.lineWidth=lw*ns; ctx.beginPath(); ctx.moveTo(-len/2,0); ctx.lineTo(len/2,0); ctx.stroke(); ctx.restore();
-        }
-        f++;
-        if(f<=FILL_FRAMES) requestAnimationFrame(tick);
-        else { onComplete(); canvas.style.display='none'; isRunning=false; }
-      } tick();
+    function setLang(lang){ if(lang!=='en') window.location.href='es/contact.html'; }
+    window._refadeContent=function(){
+      const c=document.getElementById('content');if(!c)return;
+      c.classList.remove('fade-in');
+      c.querySelectorAll('.contact-block').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(18px)';});
+      void c.offsetHeight;c.classList.add('fade-in');
+      setTimeout(()=>{c.querySelectorAll('.contact-block').forEach(el=>{el.style.opacity='';el.style.transform='';});c.classList.remove('fade-in');},600);
     };
   </script>
-
-  <!-- ── Theme + Language ───────────────────────────────────────── -->
-  <script>
-    const html=document.documentElement;
-    const saved=localStorage.getItem('theme');
-    if(saved) html.setAttribute('data-theme',saved);
-
-    function refadeContent(){
-      const c=document.getElementById('content'); if(!c)return;
-      c.classList.remove('fade-in');
-      c.querySelectorAll('.contact-block').forEach(el=>{ el.style.opacity='0'; el.style.transform='translateY(18px)'; });
-      void c.offsetHeight;
-      c.classList.add('fade-in');
-      setTimeout(()=>{ c.querySelectorAll('.contact-block').forEach(el=>{ el.style.opacity=''; el.style.transform=''; }); c.classList.remove('fade-in'); },700);
-    }
-
-    function toggleTheme(){
-      if(typeof window._noiseTransition!=='function'){ setTimeout(toggleTheme,80); return; }
-      const next=html.getAttribute('data-theme')==='dark'?'light':'dark';
-      window._noiseTransition(next==='dark'?'to-dark':'to-light',()=>{
-        html.setAttribute('data-theme',next); localStorage.setItem('theme',next); refadeContent();
-      });
-    }
-
-    function setLang(lang){
-      if(lang===html.lang)return;
-      if(lang==='es') window.location.href='es/contact.html';
-    }
-  </script>
-
 </body>
 </html>
