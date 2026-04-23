@@ -12,7 +12,7 @@
 (function () {
   /* ── Config ─────────────────────────────────────────────────── */
   const RUN_MS    = 700;   // how long matrix plays on arrival
-  const FREEZE_MS = 30;     // brief freeze before fade
+  const FREEZE_MS = 70;     // brief freeze before fade
   const FADE_MS   = 350;    // opacity fade duration (match CSS)
 
   /* ── Elements ───────────────────────────────────────────────── */
