@@ -11,8 +11,8 @@
 
 (function () {
   /* ── Config ─────────────────────────────────────────────────── */
-  const RUN_MS    = 1400;   // how long matrix plays on arrival
-  const FREEZE_MS = 60;     // brief freeze before fade
+  const RUN_MS    = 700;   // how long matrix plays on arrival
+  const FREEZE_MS = 30;     // brief freeze before fade
   const FADE_MS   = 350;    // opacity fade duration (match CSS)
 
   /* ── Elements ───────────────────────────────────────────────── */
