@@ -11,8 +11,8 @@
 
 (function () {
   /* ── Config ─────────────────────────────────────────────────── */
-  const RUN_MS    = 700;   // how long matrix plays on arrival
-  const FREEZE_MS = 70;     // brief freeze before fade
+  const RUN_MS    = 1400;   // how long matrix plays on arrival
+  const FREEZE_MS = 60;     // brief freeze before fade
   const FADE_MS   = 350;    // opacity fade duration (match CSS)
 
   /* ── Elements ───────────────────────────────────────────────── */
@@ -106,18 +106,26 @@
   }
 
   /* ── On page load ───────────────────────────────────────────── */
-  // The preloader <div> starts with display:none in CSS.
-  // We only show it if the sessionStorage flag is present.
-  window.addEventListener('load', () => {
+  // 'pageshow' fires on both normal load AND bfcache restore (back/forward).
+  // 'load' alone misses bfcache, leaving the preloader frozen on back nav.
+  window.addEventListener('pageshow', (event) => {
+    // Back/forward from bfcache — kill preloader instantly, no animation
+    if (event.persisted) {
+      stop();
+      sessionStorage.removeItem('showPreloader');
+      preloader.style.display = 'none';
+      preloader.classList.remove('fade-out');
+      return;
+    }
+
+    // Normal load — only show preloader if nav link set the flag
     const flag = sessionStorage.getItem('showPreloader');
     sessionStorage.removeItem('showPreloader');
-
     if (flag) {
       preloader.style.display = 'flex';
       start();
       setTimeout(dismiss, RUN_MS);
     }
-    // else: preloader stays hidden, page content fades in via CSS animation
   }, { once: true });
 
   window.addEventListener('resize', () => {
